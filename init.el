@@ -23,25 +23,35 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t
-                      auto-completion-enable-sort-by-usage t
-                      auto-completion-enable-help-tooltip t
-                      auto-completion-private-snippets-directory "~/.spacemacs.d/sinppets/")
-     better-defaults
      emacs-lisp
-     (git :variables
-          git-enable-magit-svn-plugin t
-          magit-repository-directories '("~/github/"))
-     github
+     better-defaults
      chrome
      (colors :variables
              colors-enable-rainbow-identifiers nil
              colors-enable-nyan-cat-progress-bar t)
+
+     ;; source control
+     (git :variables
+          git-enable-magit-svn-plugin t
+          magit-repository-directories '("~/github/"))
+     github
+
+     ;; org bundle
      (org :variables
           org-enable-github-support t)
      my-org
-     ;; gtags
+     (deft :variables
+       deft-directory "~/Dropbox/notes") ;TODO: try it
+     (spell-checking :variables
+                     spell-checking-enable-by-default nil)
+
+     ;; for development
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-sort-by-usage t
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-private-snippets-directory "~/.spacemacs.d/private/sinppets/")
+     ;; choose one: gtags or csope
      ;; (c-c++ :variables
      ;;        c-c++-default-mode-for-headers 'c++-mode
      ;;        c-c++-enable-clang-support t)
