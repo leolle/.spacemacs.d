@@ -33,11 +33,15 @@ values."
      (git :variables
           git-enable-magit-svn-plugin t
           magit-repository-directories '("~/github/"))
-
+     github
+     chrome
+     (colors :variables
+             colors-enable-rainbow-identifiers nil
+             colors-enable-nyan-cat-progress-bar t)
+     (org :variables
+          org-enable-github-support t)
+     my-org
      ;; gtags
-     ;; github
-     ;; chrome
-     ;; colors
      ;; (c-c++ :variables
      ;;        c-c++-default-mode-for-headers 'c++-mode
      ;;        c-c++-enable-clang-support t)
@@ -45,7 +49,6 @@ values."
      ;; (python :variables
      ;;         python-test-runner 'pytest)
      ;; markdown
-     org
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom
@@ -59,9 +62,19 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages
+   '(
+     switch-window
+     )
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages
+   '(
+     gnuplot
+     rainbow-identifiers
+     gist
+     git-flow
+     evil-org-mode
+     )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -273,8 +286,18 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq dired-recursive-copies 'always)
   (delete-selection-mode 1)
-  (global-set-key (kbd "C-w") 'kill-whole-line)
-  )
+  (global-set-key (kbd "C-x o") 'switch-window)
+  (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
+  (global-set-key (kbd "C-w") 'kill-whole-line) ;TODO: killing region need to be supported
+
+  ;; for chrome layer
+  (setq edit-server-url-major-mode-alist
+        '(("github\\.com" . markdown-mode)))
+  (setq edit-server-default-major-mode 'markdown-mode)
+
+  ;; enable rainbow-mode only for writting css
+  (add-hook 'css-mode-hook 'rainbow-mode)
+)
 
 ;;=====================================================================
 ;; Do not write anything past this comment. This is where Emacs will
