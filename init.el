@@ -13,7 +13,7 @@ values."
    dotspacemacs-distribution 'spacemacs
    ;; List of additional paths where to look for configuration layers.
    ;; Paths must have a trailing slash (i.e. `~/.mycontribs/')
-   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layer-path '("~/.spacemacs.d/private/")
    ;; List of configuration layers to load. If it is the symbol `all' instead
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
@@ -23,19 +23,35 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     auto-completion
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-enable-sort-by-usage t
+                      auto-completion-enable-help-tooltip t
+                      auto-completion-private-snippets-directory "~/.spacemacs.d/sinppets/")
      better-defaults
      emacs-lisp
-     git
-     chrome
-     colors
+     (git :variables
+          git-enable-magit-svn-plugin t
+          magit-repository-directories '("~/github/"))
+
+     ;; gtags
+     ;; github
+     ;; chrome
+     ;; colors
+     ;; (c-c++ :variables
+     ;;        c-c++-default-mode-for-headers 'c++-mode
+     ;;        c-c++-enable-clang-support t)
+     ;; semantic
+     ;; (python :variables
+     ;;         python-test-runner 'pytest)
      ;; markdown
      org
      ;; (shell :variables
      ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-     spell-checking
-     syntax-checking
+     ;;        shell-default-position 'bottom
+     ;;        shell-enable-smart-eshell t)
+     ;; spell-checking
+     ;; syntax-checking
      ;; version-control
      ;; chinese
      )
@@ -98,8 +114,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         monokai
+   dotspacemacs-themes '(monokai
+                         spacemacs-dark
                          occidental
                          spacemacs-light
                          solarized-light
@@ -255,6 +271,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq dired-recursive-copies 'always)
+  (delete-selection-mode 1)
   (global-set-key (kbd "C-w") 'kill-whole-line)
   )
 
