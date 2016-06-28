@@ -29,6 +29,10 @@ values."
      (colors :variables
              colors-enable-rainbow-identifiers nil
              colors-enable-nyan-cat-progress-bar t)
+     syntax-checking
+     (spell-checking :variables
+                     ;; spell-checking-enable-auto-dictionary t
+                     spell-checking-enable-by-default nil)
 
      ;; source control
      (git :variables
@@ -51,21 +55,23 @@ values."
                       auto-completion-enable-sort-by-usage t
                       auto-completion-enable-help-tooltip t
                       auto-completion-private-snippets-directory "~/.spacemacs.d/private/sinppets/")
-     ;; choose one: gtags or csope
-     ;; (c-c++ :variables
-     ;;        c-c++-default-mode-for-headers 'c++-mode
-     ;;        c-c++-enable-clang-support t)
-     ;; semantic
+     cscope
+     gtags
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-enable-clang-support t)
+     semantic
+
+     (shell :variables
+            shell-default-shell 'eshell
+            shell-default-height 30
+            shell-default-position 'bottom
+            ;; shell-enable-smart-eshell t
+            ;; shell-protect-eshell-prompt nil
+            shell-default-term-shell "/bin/bash")
      ;; (python :variables
      ;;         python-test-runner 'pytest)
      ;; markdown
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom
-     ;;        shell-enable-smart-eshell t)
-     ;; spell-checking
-     ;; syntax-checking
-     ;; version-control
      ;; chinese
      )
    ;; List of additional packages that will be installed without being
@@ -75,6 +81,7 @@ values."
    dotspacemacs-additional-packages
    '(
      switch-window
+     google-c-style
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages
@@ -307,6 +314,20 @@ you should place your code here."
 
   ;; enable rainbow-mode only for writting css
   (add-hook 'css-mode-hook 'rainbow-mode)
+
+  ;;========================================
+  ;; C++
+  ;;========================================
+  ;; need to check: semantic makes scroll-down-command not work
+  (global-set-key (kbd "M-v") 'scroll-down)
+  ;; google-c-style
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+  ;; Bind clang-format-buffer to tab on the c++-mode only:
+  (add-hook 'c++-mode-hook 'clang-format-bindings)
+  (defun clang-format-bindings ()
+    (define-key c++-mode-map [C-M-tab] 'clang-format-buffer)
+    (define-key c++-mode-map [S-tab] 'clang-format-region))
 )
 
 ;;=====================================================================
