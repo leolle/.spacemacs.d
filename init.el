@@ -82,6 +82,7 @@ values."
    '(
      switch-window
      google-c-style
+     whole-line-or-region
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages
@@ -305,7 +306,9 @@ you should place your code here."
   (delete-selection-mode 1)
   (global-set-key (kbd "C-x o") 'switch-window)
   (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
-  (global-set-key (kbd "C-w") 'kill-whole-line) ;TODO: killing region need to be supported
+  (global-set-key (kbd "C-w") 'whole-line-or-region-kill-region)
+  (global-set-key (kbd "M-w") 'whole-line-or-region-kill-ring-save)
+  (global-set-key (kbd "S-SPC") 'set-mark-command)
 
   ;; for chrome layer
   (setq edit-server-url-major-mode-alist

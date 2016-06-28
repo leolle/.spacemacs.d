@@ -12,4 +12,8 @@
       '(
         graphviz-dot-mode
         plantuml-mode
+        ;; org-id
+        ;; Automagically uncheck repeated task
+        ;; org-checklist
+        ;; org-habit
         ))
