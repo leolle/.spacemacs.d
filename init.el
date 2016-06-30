@@ -69,8 +69,10 @@ values."
             ;; shell-enable-smart-eshell t
             ;; shell-protect-eshell-prompt nil
             shell-default-term-shell "/bin/bash")
-     ;; (python :variables
-     ;;         python-test-runner 'pytest)
+
+     (python :variables
+             python-test-runner 'pytest
+             python-enable-yapf-format-on-save t)
      ;; markdown
      ;; chinese
      )
