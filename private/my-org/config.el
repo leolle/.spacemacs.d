@@ -1,25 +1,134 @@
-(setq org-agenda-files (quote ("~/Dropbox/Todo")))
+(add-hook 'message-mode-hook 'turn-on-orgtbl)
 
-;; (after-load 'org
-;;             (org-babel-do-load-languages
-;;              'org-babel-load-languages
-;;              '((R . t)
-;;                (ditaa . t)
-;;                (plantuml . t)
-;;                (dot . t)
-;;                (emacs-lisp . t)
-;;                (gnuplot . t)
-;;                (haskell . nil)
-;;                (latex . t)
-;;                (ledger . t)
-;;                (ocaml . nil)
-;;                (octave . t)
-;;                (python . t)
-;;                (ruby . t)
-;;                (screen . nil)
-;;                (sh . t)
-;;                (sql . nil)
-;;                (sqlite . t))))
+;;===========================================
+;; agenda
+;;===========================================
+(setq org-clock-persist 'history
+      org-agenda-files (quote ("~/Dropbox/Todo"))
+
+      org-todo-keywords
+      '((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+        (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))
+
+      org-todo-keyword-faces
+      '(("TODO" . (:foreground "red" :weight bold))
+        ("NEXT" . (:foreground "blue" :weight bold))
+        ("WAITING" . (:foreground "orange" :weight bold))
+        ("HOLD" . (:foreground "magenta" :weight bold))
+        ("DONE" . (:foreground "forest green" :weight bold))
+        ("CANCELLED" . (:foreground "dim gray" :weight bold))
+        ("PHONE" . (:foreground "sienna" :weight bold))
+        ("MEETING" . (:foreground "tomato" :weight bold))))
+
+(with-eval-after-load 'org-agenda
+  ;; Resume clocking task when emacs is restarted
+  (org-clock-persistence-insinuate))
+
+
+;;===========================================
+;; mathjax
+;;===========================================
+(setq org-html-mathjax-options
+      '((path "https://cdn.bootcss.com/mathjax/2.6.1/MathJax.js")
+        (scale "100")
+        (align "left")
+        (indent "2em")
+        (mathml nil)))
+
+;;============================================
+;; org project
+;;============================================
+(setq org-publish-project-alist
+      '(("note-org"
+         :base-directory "~/github/notes/org"
+         :publishing-directory  "~/github/notes"
+         :base-extension "org"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 3   ;can be customized in org's head
+         :style nil
+         :auto-index nil
+         :link-home "index.html"
+         :section-numbers nil
+         :html-preamble nil
+         :html-postamble nil
+         :auto-sitemap t                ; Generate sitemap.org automagically...
+         :sitemap-title "ChrisChen的笔记"
+         :exclude "sitemap.org")  ; ... call it sitemap.org (it's the default)...
+        ("note-static"
+         :base-directory "~/github/notes/org/resources/"
+         :publishing-directory "~/github/notes/resources/"
+         :recursive t
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el"
+         :publishing-function org-publish-attachment)
+        ("note"
+         :components ("note-org" "note-static")
+         :author "ChrisChen3121@gmail.com"
+         )))
+
+        ;; ;;blog project
+        ;; ("blog-org"
+        ;;  :base-directory "~/Dropbox/orgProject/Blog/org"
+        ;;  :publishing-directory  "~/Dropbox/orgProject/Blog/html"
+        ;;  :base-extension "org"
+        ;;  :recursive t
+        ;;  :publishing-function org-html-publish-to-html
+        ;;  :headline-levels 3
+        ;;  :style nil
+        ;;  :auto-index nil
+        ;;  :section-numbers nil
+        ;;  :html-preamble nil
+        ;;  :html-postamble nil
+        ;;  :auto-sitemap nil)
+        ;; ("blog-static"
+        ;;  :base-directory "~/Dropbox/orgProject/Blog/Resources"
+        ;;  :publishing-directory "~/Dropbox/orgProject/Blog/html/Resources"
+        ;;  :recursive t
+        ;;  :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el"
+        ;;  :publishing-function org-publish-attachment)
+        ;; ("blog"
+        ;;  :components ("blog-org" "blog-static")
+        ;;  :author "ChrisChen3121@gmail.com"
+        ;;  )
+
+        ;; ;;resume project
+        ;; ("resume-org"
+        ;;  :base-directory "~/github/notes/resume"
+        ;;  :publishing-directory  "~/github/notes"
+        ;;  :base-extension "org"
+        ;;  :recursive t
+        ;;  :publishing-function org-html-publish-to-html
+        ;;  :headline-levels nil
+        ;;  :auto-index nil
+        ;;  :section-numbers nil
+        ;;  :html-preamble nil
+        ;;  :html-postamble nil
+        ;;  :auto-sitemap nil)
+        ;; ("resume"
+        ;;  :components ("resume-org")
+        ;;  :author "ChrisChen3121@gmail.com"
+        ;;  )))
+
+;; (with-eval-after-load 'org
+;;   (org-babel-do-load-languages
+;;    'org-babel-load-languages
+;;    '((R . t)
+;;      (ditaa . t)
+;;      (plantuml . t)
+;;      (dot . t)
+;;      (emacs-lisp . t)
+;;      (gnuplot . t)
+;;      (haskell . nil)
+;;      (latex . t)
+;;      (ledger . t)
+;;      (ocaml . nil)
+;;      (octave . t)
+;;      (python . t)
+;;      (ruby . t)
+;;      (screen . nil)
+;;      (sh . t)
+;;      (sql . nil)
+;;      (sqlite . t))))
 
 ;; (after-load 'org-agenda
 ;;             (define-key org-agenda-mode-map (kbd "P") 'org-pomodoro))
@@ -47,90 +156,6 @@
 
 ;; ;; preview image after org babel executed
 ;; (add-hook 'org-babel-after-execute-hook 'bh/display-inline-images 'append)
-
-;; ;;===========================================
-;; ;; mathjax
-;; ;;===========================================
-;; (setq org-html-mathjax-options
-;;       '((path "https://cdn.mathjax.org/mathjax/latest/MathJax.js")
-;;         (scale "100")
-;;         (align "left")
-;;         (indent "2em")
-;;         (mathml nil)))
-
-;; ;;============================================
-;; ;; org project
-;; ;;============================================
-;; (setq org-publish-project-alist
-;;       '(("note-org"
-;;          :base-directory "~/github/notes/org"
-;;          :publishing-directory  "~/github/notes"
-;;          :base-extension "org"
-;;          :recursive t
-;;          :publishing-function org-html-publish-to-html
-;;          :headline-levels 3   ;can be customized in org's head
-;;          :style nil
-;;          :auto-index nil
-;;          :link-home "index.html"
-;;          :section-numbers nil
-;;          :html-preamble nil
-;;          :html-postamble nil
-;;          :auto-sitemap t                ; Generate sitemap.org automagically...
-;;          :sitemap-title "ChrisChen的笔记"
-;;          :exclude "sitemap.org")  ; ... call it sitemap.org (it's the default)...
-;;         ("note-static"
-;;          :base-directory "~/github/notes/org/resources/"
-;;          :publishing-directory "~/github/notes/resources/"
-;;          :recursive t
-;;          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el"
-;;          :publishing-function org-publish-attachment)
-;;         ("note"
-;;          :components ("note-org" "note-static")
-;;          :author "ChrisChen3121@gmail.com"
-;;          )
-
-;;         ;;blog project
-;;         ("blog-org"
-;;          :base-directory "~/Dropbox/orgProject/Blog/org"
-;;          :publishing-directory  "~/Dropbox/orgProject/Blog/html"
-;;          :base-extension "org"
-;;          :recursive t
-;;          :publishing-function org-html-publish-to-html
-;;          :headline-levels 3
-;;          :style nil
-;;          :auto-index nil
-;;          :section-numbers nil
-;;          :html-preamble nil
-;;          :html-postamble nil
-;;          :auto-sitemap nil)
-;;         ("blog-static"
-;;          :base-directory "~/Dropbox/orgProject/Blog/Resources"
-;;          :publishing-directory "~/Dropbox/orgProject/Blog/html/Resources"
-;;          :recursive t
-;;          :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el"
-;;          :publishing-function org-publish-attachment)
-;;         ("blog"
-;;          :components ("blog-org" "blog-static")
-;;          :author "ChrisChen3121@gmail.com"
-;;          )
-
-;;         ;;resume project
-;;         ("resume-org"
-;;          :base-directory "~/github/notes/resume"
-;;          :publishing-directory  "~/github/notes"
-;;          :base-extension "org"
-;;          :recursive t
-;;          :publishing-function org-html-publish-to-html
-;;          :headline-levels nil
-;;          :auto-index nil
-;;          :section-numbers nil
-;;          :html-preamble nil
-;;          :html-postamble nil
-;;          :auto-sitemap nil)
-;;         ("resume"
-;;          :components ("resume-org")
-;;          :author "ChrisChen3121@gmail.com"
-;;          )))
 
 ;; ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
 ;; (setq org-refile-targets (quote ((nil :maxlevel . 9)

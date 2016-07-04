@@ -4,7 +4,9 @@
 (global-set-key (kbd "<f12> c") 'org-capture)
 (global-set-key (kbd "<f12> t") 'org-clock-goto)
 
-
+(add-hook 'org-mode-hook (lambda()
+                           (define-key org-mode-map (kbd "M-n") 'org-forward-paragraph)
+                           (define-key org-mode-map (kbd "M-p") 'org-backward-paragraph)))
 
 
 ;; (global-set-key (kbd "C-c c") 'org-capture)
