@@ -30,9 +30,6 @@ values."
              colors-enable-rainbow-identifiers nil
              colors-enable-nyan-cat-progress-bar t)
      syntax-checking
-     (spell-checking :variables
-                     ;; spell-checking-enable-auto-dictionary t
-                     spell-checking-enable-by-default nil)
 
      ;; source control
      (git :variables
@@ -43,9 +40,8 @@ values."
      ;; org bundle
      (org :variables
           org-enable-github-support t)
-     my-org
      (deft :variables
-       deft-directory "~/Dropbox/notes") ;TODO: try it
+       deft-directory "~/Dropbox/notes/")
      (spell-checking :variables
                      spell-checking-enable-by-default nil)
 
@@ -54,7 +50,7 @@ values."
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-sort-by-usage t
                       auto-completion-enable-help-tooltip t
-                      auto-completion-private-snippets-directory "~/.spacemacs.d/private/sinppets/")
+                      auto-completion-private-snippets-directory "~/.spacemacs.d/private/snippets/")
      cscope
      gtags
      (c-c++ :variables
@@ -73,8 +69,13 @@ values."
      (python :variables
              python-test-runner 'pytest
              python-enable-yapf-format-on-save t)
-     ;; markdown
+
+     markdown
      ;; chinese
+
+     ;; private layers
+     ;; my-org
+     enhanced-c++
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -83,7 +84,6 @@ values."
    dotspacemacs-additional-packages
    '(
      switch-window
-     google-c-style
      whole-line-or-region
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
@@ -304,6 +304,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq user-mail-address "ChrisChen3121@gmail.com")
+
   (setq dired-recursive-copies 'always)
   (delete-selection-mode 1)
   (global-set-key (kbd "C-x o") 'switch-window)
@@ -311,6 +313,8 @@ you should place your code here."
   (global-set-key (kbd "C-w") 'whole-line-or-region-kill-region)
   (global-set-key (kbd "M-w") 'whole-line-or-region-kill-ring-save)
   (global-set-key (kbd "S-SPC") 'set-mark-command)
+  ;; need to check: semantic makes scroll-down-command not work
+  (global-set-key (kbd "M-v") 'scroll-down)
 
   ;; for chrome layer
   (setq edit-server-url-major-mode-alist
@@ -319,20 +323,6 @@ you should place your code here."
 
   ;; enable rainbow-mode only for writting css
   (add-hook 'css-mode-hook 'rainbow-mode)
-
-  ;;========================================
-  ;; C++
-  ;;========================================
-  ;; need to check: semantic makes scroll-down-command not work
-  (global-set-key (kbd "M-v") 'scroll-down)
-  ;; google-c-style
-  (add-hook 'c-mode-common-hook 'google-set-c-style)
-  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
-  ;; Bind clang-format-buffer to tab on the c++-mode only:
-  (add-hook 'c++-mode-hook 'clang-format-bindings)
-  (defun clang-format-bindings ()
-    (define-key c++-mode-map [C-M-tab] 'clang-format-buffer)
-    (define-key c++-mode-map [S-tab] 'clang-format-region))
 )
 
 ;;=====================================================================
