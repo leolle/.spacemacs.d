@@ -75,7 +75,7 @@ values."
 
      ;; private layers
      ;; my-org
-     enhanced-c++
+     ;; enhanced-c++
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -323,7 +323,18 @@ you should place your code here."
 
   ;; enable rainbow-mode only for writting css
   (add-hook 'css-mode-hook 'rainbow-mode)
-)
+
+  ;; for c++ layer
+  ;; Bind clang-format-region to S-tab in all modes:
+  (defun clang-format-config ()
+    (setq clang-format-style "Google")
+    (setq flycheck-clang-language-standard "c++11")
+    (define-key c++-mode-map [tab] 'clang-format-buffer)
+    (define-key c++-mode-map [backtab] 'clang-format-region)
+    (define-key c++-mode-map (kbd "C-c d") 'disaster))
+  ;; Bind clang-format-buffer to tab on the c++-mode only:
+  (add-hook 'c++-mode-hook 'clang-format-config)
+  )
 
 ;;=====================================================================
 ;; Do not write anything past this comment. This is where Emacs will
