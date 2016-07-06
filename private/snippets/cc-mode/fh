@@ -1,0 +1,17 @@
+# -*- mode: snippet -*-
+# name: file header
+# key: fh
+# --
+/*!
+ * Copyright (c) 2016, Baomap
+ * All rights reserved.
+ *
+ */
+/*!
+ *
+ * \file   `(file-name-nondirectory (buffer-file-name))`
+ * \author `(user-full-name)`
+ *
+ * \brief $0
+ *
+ */

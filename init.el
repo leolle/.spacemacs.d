@@ -325,14 +325,13 @@ you should place your code here."
 
   ;; for c++ layer
   ;; Bind clang-format-region to S-tab in all modes:
-  (defun clang-format-config ()
+  (defun clang-config ()
     (setq clang-format-style "Google")
     (setq flycheck-clang-language-standard "c++11")
-    (define-key c++-mode-map [tab] 'clang-format-buffer)
-    (define-key c++-mode-map [backtab] 'clang-format-region)
+    (define-key c++-mode-map [backtab] 'clang-format-buffer)
     (define-key c++-mode-map (kbd "C-c d") 'disaster))
   ;; Bind clang-format-buffer to tab on the c++-mode only:
-  (add-hook 'c++-mode-hook 'clang-format-config)
+  (add-hook 'c++-mode-hook 'clang-config)
   )
 
 ;;=====================================================================
