@@ -51,7 +51,7 @@ values."
                       auto-completion-enable-sort-by-usage t
                       auto-completion-enable-help-tooltip t
                       auto-completion-private-snippets-directory "~/.spacemacs.d/private/snippets/")
-     cscope
+     ;;cscope
      gtags
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
@@ -74,8 +74,7 @@ values."
      ;; chinese
 
      ;; private layers
-     ;; my-org
-     ;; enhanced-c++
+     cc-org
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
