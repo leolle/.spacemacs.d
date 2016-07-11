@@ -10,5 +10,9 @@
 ;;; License: GPLv3
 (add-hook 'python-mode-hook
           (lambda ()
+            (which-key-add-major-mode-key-based-replacements 'python-mode
+              "C-c r" "anaconda refactor cmds"
+              "C-c C-t" "skeleton"
+              "C-c !" "flycheck")
             (define-key python-mode-map (kbd "C-c C-b") 'python-add-breakpoint)
             (define-key python-mode-map (kbd "C-c C-d") 'sphinx-doc)))

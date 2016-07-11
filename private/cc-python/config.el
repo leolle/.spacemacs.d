@@ -10,4 +10,5 @@
 ;;; License: GPLv3
 (add-hook 'python-mode-hook
           (lambda ()
-            (sphinx-doc-mode t)))
+            (sphinx-doc-mode t)
+            ))

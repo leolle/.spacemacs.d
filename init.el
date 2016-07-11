@@ -326,7 +326,16 @@ you should place your code here."
   ;; enable rainbow-mode only for writting css
   (add-hook 'css-mode-hook 'rainbow-mode)
 
+  ;; development common
   (smartparens-global-mode)
+  (which-key-add-key-based-replacements
+    "C-c @" "hs-cmds"
+    "C-c ," "semantic")
+  ;; hs cmds
+  (global-set-key (kbd "C-c @ t") 'hs-toggle-hiding)
+  (global-set-key (kbd "C-c @ s") 'hs-show-all)
+  (global-set-key (kbd "C-c @ h") 'hs-hide-all)
+
 
   ;; for c++ layer
   ;; Bind clang-format-region to S-tab in all modes:
@@ -341,9 +350,7 @@ you should place your code here."
   ;; for python layer
   (add-hook 'anaconda-mode-hook
             (lambda ()
-              (spacemacs/declare-prefix (kbd "C-c r") "anaconda find reference")
               (define-key anaconda-mode-map (kbd "M-,") 'anaconda-mode-go-back)
-              ;;(define-key anaconda-mode-map (kbd "M-.") 'anaconda-mode-find-definitions)
               (define-key anaconda-mode-map (kbd "C-c r b") 'anaconda-mode-go-back)
               (define-key anaconda-mode-map (kbd "C-c r d") 'anaconda-mode-show-doc)
               (define-key anaconda-mode-map (kbd "C-c r f") 'anaconda-mode-find-definitions)
