@@ -326,6 +326,8 @@ you should place your code here."
   ;; enable rainbow-mode only for writting css
   (add-hook 'css-mode-hook 'rainbow-mode)
 
+  (smartparens-global-mode)
+
   ;; for c++ layer
   ;; Bind clang-format-region to S-tab in all modes:
   (defun clang-config ()

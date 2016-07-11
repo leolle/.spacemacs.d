@@ -8,4 +8,6 @@
 ;; This file is not part of GNU Emacs.
 ;;
 ;;; License: GPLv3
-(add-hook 'python-mode-hook (lambda () (sphinx-doc-mode t)))
+(add-hook 'python-mode-hook
+          (lambda ()
+            (sphinx-doc-mode t)))

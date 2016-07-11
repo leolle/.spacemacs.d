@@ -15,8 +15,4 @@
 
 (defun cc-python/init-sphinx-doc ()
   (use-package sphinx-doc
-    :defer t
-    :commands (sphinx-doc-mode)
-    ))
-
-;;(use-package sphinx-doc))
+    :defer t))
