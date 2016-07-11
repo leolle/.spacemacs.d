@@ -1,4 +1,4 @@
-;;; keybindings.el --- my-org Layer key bindings File
+;;; keybindings.el --- cc-org Layer key bindings File
 ;;
 ;; Copyright (c) 2016 Chris Chen
 ;;

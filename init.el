@@ -68,13 +68,15 @@ values."
 
      (python :variables
              python-test-runner 'pytest
-             python-enable-yapf-format-on-save t)
+             python-enable-yapf-format-on-save t
+             py-yapf-options '("--style=google"))
 
      markdown
      ;; chinese
 
      ;; private layers
      cc-org
+     cc-python
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -312,6 +314,7 @@ you should place your code here."
   (global-set-key (kbd "C-w") 'whole-line-or-region-kill-region)
   (global-set-key (kbd "M-w") 'whole-line-or-region-kill-ring-save)
   (global-set-key (kbd "S-SPC") 'set-mark-command)
+
   ;; need to check: semantic makes scroll-down-command not work
   (global-set-key (kbd "M-v") 'scroll-down)
 
@@ -332,8 +335,36 @@ you should place your code here."
     (define-key c++-mode-map (kbd "C-c d") 'disaster))
   ;; Bind clang-format-buffer to tab on the c++-mode only:
   (add-hook 'c++-mode-hook 'clang-config)
+
+  ;; for python layer
+  (add-hook 'anaconda-mode-hook
+            (lambda ()
+              (spacemacs/declare-prefix (kbd "C-c r") "anaconda find reference")
+              (define-key anaconda-mode-map (kbd "M-,") 'anaconda-mode-go-back)
+              ;;(define-key anaconda-mode-map (kbd "M-.") 'anaconda-mode-find-definitions)
+              (define-key anaconda-mode-map (kbd "C-c r b") 'anaconda-mode-go-back)
+              (define-key anaconda-mode-map (kbd "C-c r d") 'anaconda-mode-show-doc)
+              (define-key anaconda-mode-map (kbd "C-c r f") 'anaconda-mode-find-definitions)
+              (define-key anaconda-mode-map (kbd "C-c r r") 'anaconda-mode-find-references)
+              (define-key anaconda-mode-map (kbd "C-c r a")	'anaconda-mode-find-assignments)))
   )
 
 ;;=====================================================================
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values
+   (quote
+    ((flycheck-clang-definitions "IB_USE_STD_STRING")
+     (company-clang-arguments "-DIB_USE_STD_STRING")))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
