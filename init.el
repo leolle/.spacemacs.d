@@ -72,6 +72,7 @@ values."
              py-yapf-options '("--style=google"))
 
      markdown
+     yaml
      ;; chinese
 
      ;; private layers
