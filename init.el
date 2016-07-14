@@ -64,7 +64,7 @@ values."
             shell-default-position 'bottom
             ;; shell-enable-smart-eshell t
             ;; shell-protect-eshell-prompt nil
-            shell-default-term-shell "/bin/bash")
+            shell-default-term-shell "/bin/zsh")
 
      (python :variables
              python-test-runner 'pytest
