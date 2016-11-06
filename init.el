@@ -78,6 +78,9 @@ values."
      ;; private layers
      cc-org
      cc-python
+     cc-c++
+     cc-protobuf
+     cc-puml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -149,7 +152,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
+   dotspacemacs-themes '(monokai
+                         spacemacs-dark
                          occidental
                          spacemacs-light
                          solarized-light
@@ -314,7 +318,7 @@ you should place your code here."
   (global-set-key (kbd "C-w") 'whole-line-or-region-kill-region)
   (global-set-key (kbd "M-w") 'whole-line-or-region-kill-ring-save)
   (global-set-key (kbd "S-SPC") 'set-mark-command)
-
+  ;(setq python-shell-interpreter-args "-pylab")
   ;; need to check: semantic makes scroll-down-command not work
   (global-set-key (kbd "M-v") 'scroll-down)
 
@@ -335,6 +339,24 @@ you should place your code here."
   (global-set-key (kbd "C-c @ t") 'hs-toggle-hiding)
   (global-set-key (kbd "C-c @ s") 'hs-show-all)
   (global-set-key (kbd "C-c @ h") 'hs-hide-all)
+  ;; newline-without-break-of-line
+  (defun newline-without-break-of-line ()
+    "1. move to end of the line.
+  2. insert newline with index"
+
+    (interactive)
+    (let ((oldpos (point)))
+      (end-of-line)
+      (newline-and-indent)))
+
+  (global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
+
+  (defun select-current-line ()
+    "Select the current line"
+    (interactive)
+    (end-of-line) ; move to end of line
+    (set-mark (line-beginning-position)))
+  (global-set-key (kbd "C-c l") 'newline-without-break-of-line)
 
 
   ;; for c++ layer
@@ -357,6 +379,43 @@ you should place your code here."
               (define-key anaconda-mode-map (kbd "C-c r r") 'anaconda-mode-find-references)
               (define-key anaconda-mode-map (kbd "C-c r a")	'anaconda-mode-find-assignments)))
   )
+
+;;   (defun copy-line (arg)
+;;   "Copy lines (as many as prefix argument) in the kill ring.
+;;       Ease of use features:
+;;       - Move to start of next line.
+;;       - Appends the copy on sequential calls.
+;;       - Use newline as last char even on the last line of the buffer.
+;;       - If region is active, copy its lines."
+;;   (interactive "p")
+;;   (let ((beg (line-beginning-position))
+;;         (end (line-end-position arg)))
+;;     (when mark-active
+;;       (if (> (point) (mark))
+;;           (setq beg (save-excursion (goto-char (mark)) (line-beginning-position)))
+;;         (setq end (save-excursion (goto-char (mark)) (line-end-position)))))
+;;     (if (eq last-command 'copy-line)
+;;         (kill-append (buffer-substring beg end) (< end beg))
+;;       (kill-ring-save beg end)))
+;;   (kill-append "\n" nil)
+;;   (beginning-of-line (or (and arg (1+ arg)) 2))
+;;   (if (and arg (not (= 1 arg))) (message "%d lines copied" arg)))
+;; ;; optional key binding
+;; (global-set-key "\C-c\C-k" 'copy-line)
+
+;; (defun quick-cut-line ()
+;;   "Cut the whole line that point is on.  Consecutive calls to this command append each line to the kill-ring."
+;;   (interactive)
+;;   (let ((beg (line-beginning-position 1))
+;;         (end (line-beginning-position 2)))
+;;     (if (eq last-command 'quick-cut-line)
+;;         (kill-append (buffer-substring beg end) (< end beg))
+;;       (kill-new (buffer-substring beg end)))
+;;     (delete-region beg end))
+;;   (beginning-of-line 1)
+;;   (setq this-command 'quick-cut-line))
+
+;; (global-set-key (kbd "C-f11") 'quick-cut-line)
 
 ;;=====================================================================
 ;; Do not write anything past this comment. This is where Emacs will
