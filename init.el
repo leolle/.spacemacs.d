@@ -92,6 +92,10 @@ values."
    '(
      switch-window
      whole-line-or-region
+     auctex
+     jedi
+     pydoc-info
+     ein
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages
