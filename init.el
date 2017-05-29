@@ -34,14 +34,14 @@ values."
      ;; source control
      (git :variables
           git-enable-magit-svn-plugin t
-          magit-repository-directories '("~/github/"))
+          magit-repository-directories '("~/website/leolle.github.io"))
      github
 
      ;; org bundle
      (org :variables
           org-enable-github-support t)
      (deft :variables
-       deft-directory "~/Dropbox/notes/")
+       deft-directory "~/website/leolle.github.io/")
      (spell-checking :variables
                      spell-checking-enable-by-default nil)
 
@@ -309,10 +309,21 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (setq user-mail-address "ChrisChen3121@gmail.com")
-
+  (setq user-mail-address "victor.wuv@gmail.com")
+  ;; org 自动换行
+  (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
   (setq dired-recursive-copies 'always)
   (delete-selection-mode 1)
+  (set-language-environment 'utf-8)
+  (set-keyboard-coding-system 'utf-8)
+  (set-clipboard-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (set-buffer-file-coding-system 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (modify-coding-system-alist 'process "*" 'utf-8)
+  (setq default-process-coding-system
+        '(utf-8 . utf-8))
+  (setq-default pathname-coding-system 'utf-8)
   (global-set-key (kbd "C-x o") 'switch-window)
   (global-set-key (kbd "C-x C-b") 'buffer-menu-other-window)
   (global-set-key (kbd "C-w") 'whole-line-or-region-kill-region)
@@ -326,7 +337,27 @@ you should place your code here."
   (setq edit-server-url-major-mode-alist
         '(("github\\.com" . markdown-mode)))
   (setq edit-server-default-major-mode 'markdown-mode)
+(setq org-publish-project-alist
+      '(
 
+        ("org-notes"
+         :base-directory "~/website/leolle.github.io/"
+         :base-extension "org"
+         :publishing-directory "~/website/leolle.github.io/docs/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4             ; Just the default for this project.
+         :auto-preamble t
+         )
+        ("org-static"
+         :base-directory "~/website/leolle.github.io/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+         :publishing-directory "~/website/leolle.github.io/docs/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         )
+        ("org" :components ("org-notes" "org-static"))
+        ))
   ;; enable rainbow-mode only for writting css
   (add-hook 'css-mode-hook 'rainbow-mode)
 
