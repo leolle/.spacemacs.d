@@ -26,6 +26,8 @@ values."
      emacs-lisp
      better-defaults
      chrome
+     jedi
+     elpy
      (colors :variables
              colors-enable-rainbow-identifiers nil
              colors-enable-nyan-cat-progress-bar t)
@@ -120,7 +122,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -332,12 +334,21 @@ you should place your code here."
   ;(setq python-shell-interpreter-args "-pylab")
   ;; need to check: semantic makes scroll-down-command not work
   (global-set-key (kbd "M-v") 'scroll-down)
+  (setq default-cursor-type 'bar)
+  ;; 关闭启动帮助画面
+  (setq inhibit-splash-screen 1)
+  ;; 快速打开配置文件
+  (defun open-init-file()
+     (interactive)
+     (find-file "~/.spacemacs.d/init.el"))
 
+  ;; 这一行代码，将函数 open-init-file 绑定到 <f2> 键上
+  (global-set-key (kbd "<f2>") 'open-init-file)
   ;; for chrome layer
   (setq edit-server-url-major-mode-alist
         '(("github\\.com" . markdown-mode)))
   (setq edit-server-default-major-mode 'markdown-mode)
-(setq org-publish-project-alist
+  (setq org-publish-project-alist
       '(
 
         ("org-notes"
