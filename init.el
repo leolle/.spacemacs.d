@@ -27,6 +27,9 @@ values."
      better-defaults
      chrome
      jedi
+     flycheck
+     rg
+     py-yapf
      elpy
      (colors :variables
              colors-enable-rainbow-identifiers nil
@@ -95,7 +98,8 @@ values."
      auctex
      jedi
      pydoc-info
-     ein
+     ;; ein
+     py-autopep8
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages
@@ -105,6 +109,7 @@ values."
      gist
      git-flow
      evil-org-mode
+     ;; smartparens
      )
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -276,6 +281,10 @@ values."
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
+   ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
+   ;; over any automatically added closing parenthesis, bracket, quote, etc…
+   ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
+   ;; dotspacemacs-smart-closing-parenthesis nil
    ;; Select a scope to highlight delimiters. Possible values are `any',
    ;; `current', `all' or `nil'. Default is `all' (highlight any scope and
    ;; emphasis the current one). (default 'all)
@@ -306,6 +315,10 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (setq configuration-layer--elpa-archives
+        '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+          ("org-cn"   . "http://elpa.emacs-china.org/org/")
+          ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
   )
 
 (defun dotspacemacs/user-config ()
@@ -315,6 +328,8 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  ;; pythonpath
+  ;; (add-to-list 'python-shell-extra-pythonpaths "/home/weiwu/projects/ylib-py/")
   (setq user-mail-address "victor.wuv@gmail.com")
   ;; org 自动换行
   (add-hook 'org-mode-hook (lambda () (setq truncate-lines nil)))
@@ -327,6 +342,7 @@ you should place your code here."
   (set-buffer-file-coding-system 'utf-8)
   (set-selection-coding-system 'utf-8)
   (modify-coding-system-alist 'process "*" 'utf-8)
+
   (setq default-process-coding-system
         '(utf-8 . utf-8))
   (setq-default pathname-coding-system 'utf-8)
@@ -335,13 +351,15 @@ you should place your code here."
   (global-set-key (kbd "C-w") 'whole-line-or-region-kill-region)
   (global-set-key (kbd "M-w") 'whole-line-or-region-kill-ring-save)
   (global-set-key (kbd "S-SPC") 'set-mark-command)
-  ;(setq python-shell-interpreter-args "-pylab")
+  (global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
+;(setq python-shell-interpreter-args "-pylab")
   ;; need to check: semantic makes scroll-down-command not work
   (global-set-key (kbd "M-v") 'scroll-down)
   (setq default-cursor-type 'bar)
   ;; 关闭启动帮助画面
   (setq inhibit-splash-screen 1)
-  ;; 快速打开配置文件
+  ;; (add-to-list 'python-shell-extra-pythonpaths "/home/weiwu/tools/WaveFront/PythonScripts/")
+;; 快速打开配置文件
   (defun open-init-file()
      (interactive)
      (find-file "~/.spacemacs.d/init.el"))
@@ -377,7 +395,7 @@ you should place your code here."
   (add-hook 'css-mode-hook 'rainbow-mode)
 
   ;; development common
-  (smartparens-global-mode)
+ ;; (smartparens-global-mode)
   (which-key-add-key-based-replacements
     "C-c @" "hs-cmds"
     "C-c ," "semantic")
@@ -395,7 +413,6 @@ you should place your code here."
       (end-of-line)
       (newline-and-indent)))
 
-  (global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
 
   (defun select-current-line ()
     "Select the current line"
@@ -414,7 +431,8 @@ you should place your code here."
     (define-key c++-mode-map (kbd "C-c d") 'disaster))
   ;; Bind clang-format-buffer to tab on the c++-mode only:
   (add-hook 'c++-mode-hook 'clang-config)
-
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+  (add-hook 'python-mode-hook 'anaconda-mode)
   ;; for python layer
   (add-hook 'anaconda-mode-hook
             (lambda ()

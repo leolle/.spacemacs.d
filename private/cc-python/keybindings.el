@@ -17,3 +17,23 @@
             (define-key python-mode-map (kbd "C-c C-b") 'python-add-breakpoint)
             (define-key python-mode-map (kbd "C-c C-d") 'sphinx-doc)
             (define-key python-mode-map (kbd "C-c C-c") 'python-shell-send-buffer-switch)))
+
+;; tab the whole block
+(defun my-indent-region (N)
+  (interactive "p")
+  (if (use-region-p)
+      (progn (indent-rigidly (region-beginning) (region-end) (* N 4))
+             (setq deactivate-mark nil))
+    (self-insert-command N)))
+
+(defun my-unindent-region (N)
+  (interactive "p")
+  (if (use-region-p)
+      (progn (indent-rigidly (region-beginning) (region-end) (* N -4))
+             (setq deactivate-mark nil))
+    (self-insert-command N)))
+
+;;(global-set-key "TAB" 'my-indent-region)
+;;(global-set-key "S-TAB" 'my-unindent-region)
+;; set M-[ as find definition
+;; set M-] as find next reference
