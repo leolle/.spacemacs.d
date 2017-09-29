@@ -1,7 +1,10 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by Spacemacs at startup.
 ;; It must be stored in your home directory.
-
+(setq configuration-layer--elpa-archives
+      '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+        ("org-cn"   . "http://elpa.emacs-china.org/org/")
+        ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -57,6 +60,10 @@ values."
                       auto-completion-enable-help-tooltip t
                       auto-completion-private-snippets-directory "~/.spacemacs.d/private/snippets/")
      ;;cscope
+     (plantuml :variables
+               plantuml-jar-path "/usr/bin/plantuml"
+               org-plantuml-jar-path "/usr/bin/plantuml"
+               plantuml-output-type "png")
      gtags
      (c-c++ :variables
             c-c++-default-mode-for-headers 'c++-mode
@@ -131,7 +138,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https nil
+   dotspacemacs-elpa-https t
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    ;; If non nil then spacemacs will check for updates at startup
@@ -315,10 +322,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (setq configuration-layer--elpa-archives
-        '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
-          ("org-cn"   . "http://elpa.emacs-china.org/org/")
-          ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")))
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -398,6 +402,8 @@ you should place your code here."
  ;; (smartparens-global-mode)
   (which-key-add-key-based-replacements
     "C-c @" "hs-cmds"
+    "C-c !" "flycheck"
+    "C-c p" "projectile"
     "C-c ," "semantic")
   ;; hs cmds
   (global-set-key (kbd "C-c @ t") 'hs-toggle-hiding)
