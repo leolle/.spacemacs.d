@@ -18,3 +18,5 @@
 (add-hook 'org-mode-hook (lambda()
                            (define-key org-mode-map (kbd "M-n") 'org-forward-paragraph)
                            (define-key org-mode-map (kbd "M-p") 'org-backward-paragraph)))
+
+(which-key-add-key-based-replacements "C-c C-v" "org-babel")

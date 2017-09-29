@@ -374,27 +374,27 @@ you should place your code here."
   (setq edit-server-url-major-mode-alist
         '(("github\\.com" . markdown-mode)))
   (setq edit-server-default-major-mode 'markdown-mode)
-  (setq org-publish-project-alist
-      '(
+  ;; (setq org-publish-project-alist
+  ;;     '(
 
-        ("org-notes"
-         :base-directory "~/website/leolle.github.io/"
-         :base-extension "org"
-         :publishing-directory "~/website/leolle.github.io/docs/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4             ; Just the default for this project.
-         :auto-preamble t
-         )
-        ("org-static"
-         :base-directory "~/website/leolle.github.io/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-         :publishing-directory "~/website/leolle.github.io/docs/"
-         :recursive t
-         :publishing-function org-publish-attachment
-         )
-        ("org" :components ("org-notes" "org-static"))
-        ))
+  ;;       ("org-notes"
+  ;;        :base-directory "~/website/leolle.github.io/"
+  ;;        :base-extension "org"
+  ;;        :publishing-directory "~/website/leolle.github.io/docs/"
+  ;;        :recursive t
+  ;;        :publishing-function org-html-publish-to-html
+  ;;        :headline-levels 4             ; Just the default for this project.
+  ;;        :auto-preamble t
+  ;;        )
+  ;;       ("org-static"
+  ;;        :base-directory "~/website/leolle.github.io/"
+  ;;        :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+  ;;        :publishing-directory "~/website/leolle.github.io/docs/"
+  ;;        :recursive t
+  ;;        :publishing-function org-publish-attachment
+  ;;        )
+  ;;       ("org" :components ("org-notes" "org-static"))
+  ;;       ))
   ;; enable rainbow-mode only for writting css
   (add-hook 'css-mode-hook 'rainbow-mode)
 
