@@ -47,14 +47,13 @@
          :headline-levels 3
          :style nil
          :auto-index nil
-         :link-home "index.html"
          :section-numbers nil
          :html-preamble nil
          :html-postamble nil
-         :auto-sitemap t
-         :sitemap-title "Wei's notes"
-         :sitemap-filename "sitemap.org"
-         :exclude "sitemap.org"
+         :auto-sitemap nil
+         ;;:sitemap-titles "Wei's notes"
+         ;;:sitemap-filename "sitemap.org"
+         ;;:exclude "sitemap.org"
          )
         ("note-static"
          :base-directory "~/website/leolle.github.io/img"
@@ -64,12 +63,13 @@
          :publishing-function org-publish-attachment)
         ("note"
          :components ("note-org" "note-static")
-         :author "Wei Wu"
+         :authors "Wei Wu"
          :email "victor.wuv@gmail.com"
          ))))
 
 (defun cc-org/pre-init-org ()
   (with-eval-after-load 'org
+    (setq org-plantuml-jar-path "/usr/bin/plantuml")
     (setq org-ditaa-jar-path "/usr/bin/ditaa")
     (setq org-confirm-babel-evaluate nil)
     (define-key org-mode-map (kbd "C-c w") 'org-refile)
@@ -81,7 +81,7 @@
        (sh . t)
        (ditaa . t)
        (dot . t)
-       (plantuml . t)
+       ;;(plantuml . t)
        (python . t)
        (C . t)
        (lisp . t)
