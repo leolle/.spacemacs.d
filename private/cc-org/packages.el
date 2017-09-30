@@ -59,7 +59,7 @@
          :base-directory "~/website/leolle.github.io/img"
          :publishing-directory "~/website/leolle.github.io/docs/img"
          :recursive t
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|zip\\|gz\\|txt\\|el"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|swf\\|html\\|zip\\|gz\\|txt\\|el"
          :publishing-function org-publish-attachment)
         ("note"
          :components ("note-org" "note-static")
