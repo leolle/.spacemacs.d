@@ -1,9 +1,9 @@
-;;; packages.el --- cc-org layer packages file for Spacemacs.
+;;; packages.el --- cc-org layer \packages file for Spacemacs.
 ;;
-;; Copyright (c) 2016 ChrisChen
+;; Copyright (c) 2016 WeiWu
 ;;
-;; Author: ChrisChen <ChrisChen3121@gmail.com>
-;; URL: https://github.com/ChrisChen3121/.spacemacs.d
+;; Author: weiwu <victor.wuv@gmail.com>
+;; URL: https://github.com/leolle/.spacemacs.d
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -51,7 +51,7 @@
          :html-preamble nil
          :html-postamble nil
          :auto-sitemap nil
-         ;;:sitemap-titles "Wei's notes"
+         :sitemap-titles "Wei's notes"
          ;;:sitemap-filename "sitemap.org"
          ;;:exclude "sitemap.org"
          )
@@ -81,7 +81,7 @@
        (sh . t)
        (ditaa . t)
        (dot . t)
-       ;;(plantuml . t)
+       (plantuml . t)
        (python . t)
        (C . t)
        (lisp . t)

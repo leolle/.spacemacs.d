@@ -1,9 +1,9 @@
 ;;; keybindings.el --- cc-org Layer key bindings File
 ;;
-;; Copyright (c) 2016 Chris Chen
+;; Copyright (c) 2016 Wei Wu
 ;;
-;; Author: Chris Chen <ChrisChen3121@gmail.com>
-;; URL: https://github.com/ChrisChen3121/.spacemacs.d
+;; Author: Wei Wu <victor.wuv@gmail.com>
+;; URL: https://github.com/leolle/.spacemacs.d
 ;;
 ;; This file is not part of GNU Emacs.
 ;;

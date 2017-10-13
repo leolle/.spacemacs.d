@@ -61,8 +61,8 @@ values."
                       auto-completion-private-snippets-directory "~/.spacemacs.d/private/snippets/")
      ;;cscope
      (plantuml :variables
-               plantuml-jar-path "/usr/bin/plantuml"
-               org-plantuml-jar-path "/usr/bin/plantuml"
+               plantuml-jar-path "/usr/bin/plantuml/plantuml.jar"
+               org-plantuml-jar-path "/usr/bin/plantuml/plantuml.jar"
                plantuml-output-type "png")
      gtags
      (c-c++ :variables
@@ -92,7 +92,7 @@ values."
      cc-python
      cc-c++
      cc-protobuf
-     ;; cc-puml
+     cc-plantuml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
