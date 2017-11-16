@@ -29,11 +29,11 @@ values."
      emacs-lisp
      better-defaults
      chrome
-     jedi
-     flycheck
+     ;; jedi
+     ;; flycheck
      rg
-     py-yapf
-     elpy
+     ;; py-yapf
+     ;; elpy
      (colors :variables
              colors-enable-rainbow-identifiers nil
              colors-enable-nyan-cat-progress-bar t)
@@ -55,9 +55,17 @@ values."
 
      ;; for development
      (auto-completion :variables
-                      auto-completion-enable-snippets-in-popup t
+;;                       auto-completion-enable-snippets-in-popup t
+   ;;                    auto-completion-enable-sort-by-usage t
+      ;;                 auto-completion-enable-help-tooltip t
+         ;;             auto-completion-enable-snippets-in-popup nil
+                      ;; auto-completion-return-key-behavior 'complete
+                      auto-completion-tab-key-behavior 'cycle
+                      auto-completion-complete-with-key-sequence nil
+                      auto-completion-complete-with-key-sequence-delay 0.4
                       auto-completion-enable-sort-by-usage t
-                      auto-completion-enable-help-tooltip t
+                      auto-completion-enable-help-tooltip 'manual
+
                       auto-completion-private-snippets-directory "~/.spacemacs.d/private/snippets/")
      ;;cscope
      (plantuml :variables
@@ -103,10 +111,13 @@ values."
      switch-window
      whole-line-or-region
      auctex
-     jedi
      pydoc-info
      ;; ein
      py-autopep8
+     jedi
+     elpy
+     py-yapf
+     flycheck
      )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages
@@ -288,6 +299,7 @@ values."
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
+   ;; dotspacemacs-smart-closing-parenthesis t
    ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
@@ -356,6 +368,7 @@ you should place your code here."
   (global-set-key (kbd "M-w") 'whole-line-or-region-kill-ring-save)
   (global-set-key (kbd "S-SPC") 'set-mark-command)
   (global-set-key (kbd "<C-return>") 'newline-without-break-of-line)
+  (global-set-key (kbd "<S-return>") 'insert-and-indent-line-above)
 ;(setq python-shell-interpreter-args "-pylab")
   ;; need to check: semantic makes scroll-down-command not work
   (global-set-key (kbd "M-v") 'scroll-down)
@@ -399,7 +412,7 @@ you should place your code here."
   (add-hook 'css-mode-hook 'rainbow-mode)
 
   ;; development common
- ;; (smartparens-global-mode)
+  ;; (smartparens-global-mode)
   (which-key-add-key-based-replacements
     "C-c @" "hs-cmds"
     "C-c !" "flycheck"
@@ -418,7 +431,33 @@ you should place your code here."
     (let ((oldpos (point)))
       (end-of-line)
       (newline-and-indent)))
+  (defun insert-and-indent-line-above ()
+    "1. move to the previous line.
+    2. move to end of the line.
+    3. insert newline with index"
 
+    (interactive)
+    (let ((oldpos (point)))
+      (beginning-of-line)
+      (open-line 1)
+      ))
+
+  ;; evaluate current line
+  ;; (add-hook 'python-mode-hook
+  ;;           'my-python-next-statement)
+  ;; (defun my-python-next-statement ()
+  ;;   (interactive)
+  ;;   (local-set-key (kbd "<f5>") 'my-python-next-statement)
+  ;;   (if (string= mode-name "Python")
+  ;;       (progn
+  ;;         (python-next-statement)
+  ;;         (beginning-of-line)
+  ;;         (setq lineStart (point))
+  ;;         (end-of-line)
+  ;;         (setq lineEnd (point))
+  ;;         (python-send-region lineStart lineEnd) )
+  ;;     (message "function only applies to Python mode")
+  ;;     (beep)))
 
   (defun select-current-line ()
     "Select the current line"
@@ -426,7 +465,7 @@ you should place your code here."
     (end-of-line) ; move to end of line
     (set-mark (line-beginning-position)))
   (global-set-key (kbd "C-c l") 'newline-without-break-of-line)
-
+  (global-set-key (kbd "C-o") (lambda () (interactive)(beginning-of-line)(open-line 1)))
 
   ;; for c++ layer
   ;; Bind clang-format-region to S-tab in all modes:
